@@ -1,0 +1,4 @@
+# Add the bellow lines to the bottom of the /etc/fstab file to mount 
+#correctly the drives and with the write permisions
+UUID=80A8-F26B /media/bmo/VAULT exfat defaults,nofail,uid=1000,gid=1000 0 0
+UUID=C0A9-4077 /media/bmo/MIMIC vfat defaults,nofail,uid=1000,gid=1000 0 0
