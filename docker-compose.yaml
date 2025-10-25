@@ -1,0 +1,41 @@
+version: "3.9"
+
+networks:
+  media_net:
+    driver: bridge   # will be created automatically
+
+services:
+  jellyfin:
+    extends:
+      file: ./jellyfin/compose.yaml
+      service: jellyfin
+    networks:
+      - media_net
+
+  prowlarr:
+    extends:
+      file: ./prowlarr/compose.yaml
+      service: prowlarr
+    networks:
+      - media_net
+
+  qbittorrent:
+    extends:
+      file: ./qbittorent/compose.yaml
+      service: qbittorrent
+    networks:
+      - media_net
+
+  sonarr:
+    extends:
+      file: ./sonarr/compose.yaml
+      service: sonarr
+    networks:
+      - media_net
+
+  radarr:
+    extends:
+      file: ./radarr/compose.yaml
+      service: radarr
+    networks:
+      - media_net
