@@ -9,7 +9,7 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - /home/bmo/Services/qbittorent:/config
+      - /media/bmo/VAULT/qbittorent:/config
       - /media/bmo/MIMIC/downloads:/downloads
     ports:
       - 8080:8080
