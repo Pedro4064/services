@@ -39,7 +39,16 @@ services:
       service: radarr
     networks:
       - media_net
+
+  seerr:
+      extends:
+        file: ./seerr/compose.yaml
+        service: seerr
+      networks:
+      - media_net
+
   calibre-web:
       extends:
         file: ./calibre_web/compose.yaml
         service: calibre-web
+
