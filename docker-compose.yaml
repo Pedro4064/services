@@ -39,3 +39,7 @@ services:
       service: radarr
     networks:
       - media_net
+  calibre-web:
+      extends:
+        file: ./calibre_web/compose.yaml
+        service: calibre-web
