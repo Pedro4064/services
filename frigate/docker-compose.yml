@@ -1,0 +1,27 @@
+services:
+  frigate:
+    container_name: frigate
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable
+
+    shm_size: "256mb"   # ↑ increased (important)
+
+    devices:
+      - /dev/video11:/dev/video11   # Pi hardware acceleration
+      - /dev/video10:/dev/video10
+      - /dev/video12:/dev/video12
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/FALCON/frigate/config:/config
+      - /mnt/FALCON/frigate/data:/media/frigate
+
+    ports:
+      - "5000:5000"
+      - "8554:8554"
+
+    environment:
+      FRIGATE_RTSP_PASSWORD: "password"
+
+    tmpfs:
+      - /tmp/cache:size=100000000

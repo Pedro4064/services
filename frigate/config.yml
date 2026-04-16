@@ -1,0 +1,38 @@
+mqtt:
+  enabled: false
+
+auth:
+  enabled: false
+
+ffmpeg:
+  #hwaccel_args: preset-rpi-64-h264
+  hwaccel_args:
+    - -c:v
+    - h264_v4l2m2m
+  global_args: -threads 1
+
+cameras:
+  cam1:
+    onvif:
+      host: 192.168.0.101
+      port: 80          #  Intelbras often uses 80, not 8000
+      user: <USER>
+      password: <PASSWORD>
+    ffmpeg:
+      inputs:
+        - path: 
+            rtsp://<USER>:<PASSWORD>@<CAMERA IP>:554/cam/realmonitor?channel=1&subtype=1
+          input_args: -rtsp_transport tcp
+          roles:
+            - record
+
+    detect:
+      enabled: false
+
+    record:
+      enabled: true
+      continuous:
+        days: 1
+      motion:
+        days: 0
+version: 0.17-0
