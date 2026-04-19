@@ -5,26 +5,29 @@ auth:
   enabled: false
 
 ffmpeg:
-  #hwaccel_args: preset-rpi-64-h264
-  hwaccel_args:
-    - -c:v
-    - h264_v4l2m2m
   global_args: -threads 1
 
 cameras:
   cam1:
     onvif:
-      host: 192.168.0.101
-      port: 80          #  Intelbras often uses 80, not 8000
-      user: <USER>
-      password: <PASSWORD>
+      host: <CAM_IP>
+      port: 80
+      user: <user - for intelbras it is admin>
+      password: <password>
+
     ffmpeg:
+      output_args:
+        record: -f segment -segment_time 60 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy
       inputs:
-        - path: 
-            rtsp://<USER>:<PASSWORD>@<CAMERA IP>:554/cam/realmonitor?channel=1&subtype=1
-          input_args: -rtsp_transport tcp
+        - path: rtsp://<user>:<password>@<CAM_IP>:554/cam/realmonitor?channel=1&subtype=1
+          input_args:
+            - -rtsp_transport
+            - tcp
           roles:
             - record
+          hwaccel_args:
+            - -c:v
+            - h264_v4l2m2m
 
     detect:
       enabled: false
@@ -35,4 +38,5 @@ cameras:
         days: 1
       motion:
         days: 0
+
 version: 0.17-0
